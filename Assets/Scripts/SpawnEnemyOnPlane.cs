@@ -58,7 +58,8 @@ public class SpawnEnemyOnPlane : MonoBehaviour
                 foreach (ARRaycastHit hit in hits)
                 {
                     Pose pose = hit.pose;
-                    GameObject enemy = Instantiate(enemyPrefab, pose.position, pose.rotation);
+                    Quaternion rotation = pose.rotation * Quaternion.Euler(0f, 180f, 0f);
+                    GameObject enemy = Instantiate(enemyPrefab, pose.position, rotation);
                     debugText2.text = "Enemy spawned!";
 
                     if (aRPlaneManager.GetPlane(hit.trackableId).alignment == PlaneAlignment.HorizontalUp)
@@ -75,13 +76,13 @@ public class SpawnEnemyOnPlane : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveTowardCamera(GameObject enemy)
+    IEnumerator MoveTowardCamera(GameObject enemy)
     {
         Vector3 position = enemy.transform.position;
         position.y = 0f;
         Vector3 arCamera = Camera.main.transform.position;
         arCamera.y = 0f;
-        Vector3 direction = arCamera - position;
+        Vector3 direction = position - arCamera; // Reverse the direction calculation
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, 1f);
 
@@ -91,6 +92,7 @@ public class SpawnEnemyOnPlane : MonoBehaviour
             yield return null;
         }
     }
+
 
     private void FingerDown(EnhancedTouch.Finger finger)
     {
