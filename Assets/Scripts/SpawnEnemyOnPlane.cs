@@ -46,7 +46,7 @@ public class SpawnEnemyOnPlane : MonoBehaviour
 
     private IEnumerator SpawnEnemiesRoutine()
     {
-        while (true)
+        while (!GameManager.instance.isGameOver)
         {
             yield return new WaitForSeconds(spawnInterval);
 
