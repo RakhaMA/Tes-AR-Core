@@ -5,13 +5,15 @@ using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
-    
+
     public float playerHealth = 100f;
     public float damageTaken = 25f;
+    public TextMeshProUGUI debugText;
 
     public void TakeDamage(float damage)
     {
         playerHealth -= damage;
+        debugText.text = "Player Health: " + playerHealth.ToString();
         if (playerHealth <= 0f)
         {
             GameManager.instance.GameOver();

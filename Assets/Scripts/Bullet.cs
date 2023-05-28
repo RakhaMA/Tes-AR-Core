@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inspector_Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     [Header("Main Settings")]
-    public GameObject TargetBullet;
     public float Speed;
     public float DestroyTime;
 
@@ -26,6 +25,6 @@ public class Inspector_Bullet : MonoBehaviour
     void Update()
     {
         //menggerakan objek ke depan
-        TargetBullet.transform.Translate(Vector3.forward * Speed * Time.deltaTime);
+        this.transform.Translate(Vector3.forward * Speed * Time.deltaTime);
     }
 }
